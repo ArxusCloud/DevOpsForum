@@ -131,9 +131,10 @@ jobs:
 
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
+      working-directory: ./Terraform
 
     - name: Terraform Init
-      run: sudo terraform init
+      run: terraform init
       working-directory: ./Terraform
 
     - name: Terraform Format
