@@ -14,6 +14,10 @@ env:
   HOSTINGPLANNAME: "DevOpsForum-plan"
   APPINSIGHTLOCATION: "West Europe"
   SKU: "S1 Standard"
+  ARM_CLIENT_ID: ${{secrets.TF_ARM_CLIENT_ID}}
+  ARM_CLIENT_SECRET: ${{secrets.TF_ARM_CLIENT_SECRET}}
+  ARM_SUBSCRIPTION_ID: ${{secrets.TF_ARM_SUBSCRIPTION_ID}}
+  ARM_TENANT_ID: ${{secrets.TF_ARM_TENANT_ID}}
 
 jobs:
   build:
@@ -62,7 +66,13 @@ jobs:
         files: ./ArmTemplates
         dest: ./deploymenttemplates/ArmTemplates.zip
 
-    - name: Upload Arm templates to Artifact
+    - name: Archive Terraform
+      uses: papeloto/action-zip@v1
+      with:
+        files: ./Terraform
+        dest: ./deploymenttemplates/Terraform.zip
+
+    - name: Upload templates to Artifact
       continue-on-error: false
       uses: actions/upload-artifact@v2
       with:
@@ -87,7 +97,7 @@ jobs:
       with:
        args: unzip -qq ./buildartifacts/Application.zip -d ./Application
 
-    - name: Download an Arm template
+    - name: Download templates
       uses: actions/download-artifact@v2
       continue-on-error: false
       with:
@@ -98,6 +108,11 @@ jobs:
       uses: montudor/action-zip@v0.1.0
       with:
        args: unzip -qq ./deploymenttemplates/ArmTemplates.zip -d ./ArmTemplates
+
+    - name: unzipping Terraform artifact
+      uses: montudor/action-zip@v0.1.0
+      with:
+       args: unzip -qq ./deploymenttemplates/Terraform.zip -d ./Terraform
 
     - name: Login to Azure
       uses: azure/login@v1
@@ -112,6 +127,23 @@ jobs:
         inlineScript: |
           az group create --name "${{ env.RESOURCEGROUPNAME }}" --location "${{ env.LOCATION }}"
           az deployment group create --resource-group "${{ env.RESOURCEGROUPNAME }}" --template-file ./ArmTemplates/windows-webapp-template.json --parameters webAppName="${{ env.AZURE_WEBAPP_NAME }}" hostingPlanName="${{ env.HOSTINGPLANNAME }}" appInsightsLocation="${{ env.APPINSIGHTLOCATION }}" sku="${{ env.SKU }}"
+
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+
+    - name: Terraform Init
+      run: terraform init
+      working-directory: ./Terraform
+
+    - name: Terraform Format
+      run: terraform fmt -check
+      working-directory: ./Terraform
+
+    - name: Terraform Plan
+      run: terraform plan
+      working-directory: ./Terraform
+
 
     - name: 'Deploy web app'
       uses: azure/webapps-deploy@v2
