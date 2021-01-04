@@ -14,10 +14,10 @@ env:
   HOSTINGPLANNAME: "DevOpsForum-plan"
   APPINSIGHTLOCATION: "West Europe"
   SKU: "S1 Standard"
-  ARM_CLIENT_ID: ${{secrets.TF_ARM_CLIENT_ID}}
-  ARM_CLIENT_SECRET: ${{secrets.TF_ARM_CLIENT_SECRET}}
-  ARM_SUBSCRIPTION_ID: ${{secrets.TF_ARM_SUBSCRIPTION_ID}}
-  ARM_TENANT_ID: ${{secrets.TF_ARM_TENANT_ID}}
+  ARM_CLIENT_ID: ${{ secrets.TF_ARM_CLIENT_ID }}
+  ARM_CLIENT_SECRET: ${{ secrets.TF_ARM_CLIENT_SECRET }}
+  ARM_SUBSCRIPTION_ID: ${{ secrets.TF_ARM_SUBSCRIPTION_ID }}
+  ARM_TENANT_ID: ${{ secrets.TF_ARM_TENANT_ID }}
 
 jobs:
   build:
@@ -131,7 +131,6 @@ jobs:
 
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
-      working-directory: ./Terraform
 
     - name: Terraform Init
       run: terraform init
