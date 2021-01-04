@@ -133,7 +133,7 @@ jobs:
       uses: hashicorp/setup-terraform@v1
 
     - name: Terraform Init
-      run: terraform init
+      run: terraform init -lock=false
       working-directory: ./Terraform
 
     - name: Terraform Format
