@@ -1,5 +1,4 @@
 provider "azurerm" {
-#  version = "=2.41.0"
   features {}
 }
 
@@ -13,19 +12,19 @@ terraform {
 }
 
 resource "azurerm_resource_group" "rg-devopsforum" {
-  name     = "rg-devopsforum"
-  location = "westeurope"
+  name     = local.rg-name
+  location = var.location
 }
 
 resource "azurerm_application_insights" "ai-devopsforum" {
-  name                = "DevOpsForum"
+  name                = local.ai-name
   location            = azurerm_resource_group.rg-devopsforum.location
   resource_group_name = azurerm_resource_group.rg-devopsforum.name
   application_type    = "web"
 }
 
 resource "azurerm_app_service_plan" "asp-devopsforum" {
-  name                = "DevOpsForum-plan"
+  name                = local.asp-name
   location            = azurerm_resource_group.rg-devopsforum.location
   resource_group_name = azurerm_resource_group.rg-devopsforum.name
 
@@ -36,14 +35,14 @@ resource "azurerm_app_service_plan" "asp-devopsforum" {
 }
 
 resource "azurerm_app_service" "as-devopsforum" {
-  name                = "DevOpsForum"
+  name                = local.as-name
   location            = azurerm_resource_group.rg-devopsforum.location
   resource_group_name = azurerm_resource_group.rg-devopsforum.name
   app_service_plan_id = azurerm_app_service_plan.asp-devopsforum.id
 
   site_config {
     dotnet_framework_version = "v4.0"
-    scm_type                 = "LocalGit"
+    scm_type                 = "None"
   }
 
   app_settings = {
