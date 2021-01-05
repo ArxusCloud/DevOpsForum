@@ -110,9 +110,13 @@ jobs:
        args: unzip -qq ./deploymenttemplates/ArmTemplates.zip -d ./ArmTemplates
 
     - name: unzipping Terraform artifact
-      uses: montudor/action-zip@v0.1.0
-      with:
-       args: unzip -qq ./deploymenttemplates/Terraform.zip -d ./TerraformTemplates
+      run: |
+        unzip -d ./TerraformTemplates ./deploymenttemplates/Terraform.zip
+
+#    - name: unzipping Terraform artifact
+#      uses: montudor/action-zip@v0.1.0
+#      with:
+#       args: unzip -qq ./deploymenttemplates/Terraform.zip -d ./TerraformTemplates
 
     - name: Login to Azure
       uses: azure/login@v1
