@@ -139,7 +139,7 @@ jobs:
       working-directory: ./TerraformTemplates
 
     - name: Terraform Init
-      run: sudo terraform init
+      run: terraform init
       working-directory: ./TerraformTemplates
 
 
