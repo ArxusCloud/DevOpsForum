@@ -167,7 +167,7 @@ jobs:
     needs: deploy
     steps:
 
-#    - uses: actions/checkout@master
+    - uses: actions/checkout@master
 
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
