@@ -144,7 +144,7 @@ jobs:
       working-directory: ./TerraformTemplates
 
     - name: Terraform Format
-      run: terraform fmt -check
+      run: terraform fmt
       working-directory: ./TerraformTemplates
 
     - name: Terraform Plan
