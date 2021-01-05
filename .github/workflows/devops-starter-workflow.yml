@@ -138,14 +138,14 @@ jobs:
       with:
         terraform_version: 0.14.3
 
-    - name: Terraform Format
-      run: terraform fmt -check
-      working-directory: ./TerraformTemplates
 
     - name: Terraform Init
       run: terraform init
       working-directory: ./TerraformTemplates
 
+   - name: Terraform Format
+     run: terraform fmt -check
+     working-directory: ./TerraformTemplates
 
     - name: Terraform Plan
       run: terraform plan
