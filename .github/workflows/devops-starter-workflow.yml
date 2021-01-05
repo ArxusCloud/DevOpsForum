@@ -151,6 +151,9 @@ jobs:
       run: terraform plan
       working-directory: ./TerraformTemplates
 
+    - name: Terraform Apply
+      run: terraform apply -auto-approve
+      working-directory: ./TerraformTemplates
 
     - name: 'Deploy web app'
       uses: azure/webapps-deploy@v2
