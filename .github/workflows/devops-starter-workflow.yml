@@ -194,3 +194,4 @@ jobs:
         popd
         cd Application\aspnet-core-dotnet-core.FunctionalTests
         dotnet test aspnet-core-dotnet-core.FunctionalTests.csproj -s functionalTests.runsettings
+
