@@ -10,8 +10,8 @@ variable "location" {
 
 
 locals {
-    rg-name = concat("rg-", var.name)
+    rg-name = format("rg-%s", var.name)
     ai-name = var.name
-    asp-name = concat(var.name, "-plan")
+    asp-name = format(var.name, "%s-plan")
     as-name = var.name
 }
