@@ -46,7 +46,7 @@ resource "azurerm_app_service" "as-devopsforum" {
     scm_type                 = "LocalGit"
   }
 
-  app_settings {
+  app_settings = {
     "APPINSIGHTS_INSTRUMENTATIONKEY" = azurerm_application_insights.ai-devopsforum.instrumentation_key
     "WEBSITE_NODE_DEFAULT_VERSION" = "6.9.1"
   }
