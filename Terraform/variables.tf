@@ -10,8 +10,8 @@ variable "location" {
 
 
 locals {
-    rg-name = format("rg-%s", var.name)
+    rg-name = "rg-${var.name}"
     ai-name = var.name
-    asp-name = format(var.name, "%s-plan")
+    asp-name = "${var.name}-plan"
     as-name = var.name
 }
