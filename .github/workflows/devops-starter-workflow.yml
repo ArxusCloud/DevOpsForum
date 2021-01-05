@@ -91,9 +91,8 @@ jobs:
 
     # Unzip Application Artifact
     - name: unzipping build artifact
-      uses: montudor/action-zip@v0.1.0
-      with:
-       args: unzip -qq ./buildartifacts/Application.zip -d ./Application
+      run: |
+        unzip -d ./Application ./buildartifacts/Application.zip
 
     # Download Terraform Artifacts
     - name: Download templates
