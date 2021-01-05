@@ -47,7 +47,17 @@ resource "azurerm_app_service" "as-devopsforum" {
   }
 
   app_settings = {
-    "APPINSIGHTS_INSTRUMENTATIONKEY" = azurerm_application_insights.ai-devopsforum.instrumentation_key
+    "APPINSIGHTS_INSTRUMENTATIONKEY"                  = azurerm_application_insights.ai-devopsforum.instrumentation_key
+    "APPINSIGHTS_PROFILERFEATURE_VERSION"             = "1.0.0"
+    "APPINSIGHTS_SNAPSHOTFEATURE_VERSION"             = "1.0.0"
+    "APPLICATIONINSIGHTS_CONNECTION_STRING"           = azurerm_application_insights.ai-devopsforum.connection_string
+    "ApplicationInsightsAgent_EXTENSION_VERSION"      = "~2"
+    "DiagnosticServices_EXTENSION_VERSION"            = "~3"
+    "InstrumentationEngine_EXTENSION_VERSION"         = "disabled"
+    "SnapshotDebugger_EXTENSION_VERSION"              = "disabled"
+    "XDT_MicrosoftApplicationInsights_BaseExtensions" = "disabled"
+    "XDT_MicrosoftApplicationInsights_Mode"           = "recommended"
+    "XDT_MicrosoftApplicationInsights_PreemptSdk"     = "disabled"
     "WEBSITE_NODE_DEFAULT_VERSION" = "6.9.1"
   }
 }
