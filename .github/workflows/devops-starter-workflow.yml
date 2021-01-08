@@ -122,14 +122,17 @@ jobs:
         terraform_version: 0.14.3
 
     - name: Terraform Format
+      id: fmt
       run: terraform fmt
       working-directory: ./TerraformTemplates
 
     - name: Terraform Init
+      id: init
       run: terraform init
       working-directory: ./TerraformTemplates
 
     - name: Terraform Plan
+      id: plan
       if: github.event_name == 'pull_request'
       run: terraform plan
       continue-on-error: true
