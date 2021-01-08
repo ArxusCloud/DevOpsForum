@@ -14,6 +14,9 @@ terraform {
 resource "azurerm_resource_group" "rg-devopsforum" {
   name     = local.rg-name
   location = var.location
+  tags = {
+    environment = "DevOpsForum"
+  }
 }
 
 resource "azurerm_application_insights" "ai-devopsforum" {
@@ -21,6 +24,9 @@ resource "azurerm_application_insights" "ai-devopsforum" {
   location            = azurerm_resource_group.rg-devopsforum.location
   resource_group_name = azurerm_resource_group.rg-devopsforum.name
   application_type    = "web"
+  tags = {
+    environment = "DevOpsForum"
+  }
 }
 
 resource "azurerm_app_service_plan" "asp-devopsforum" {
@@ -31,6 +37,9 @@ resource "azurerm_app_service_plan" "asp-devopsforum" {
   sku {
     tier = "Standard"
     size = "S1"
+  }
+  tags = {
+    environment = "DevOpsForum"
   }
 }
 
@@ -58,5 +67,8 @@ resource "azurerm_app_service" "as-devopsforum" {
     "XDT_MicrosoftApplicationInsights_Mode"           = "recommended"
     "XDT_MicrosoftApplicationInsights_PreemptSdk"     = "disabled"
     "WEBSITE_NODE_DEFAULT_VERSION" = "6.9.1"
+  }
+  tags = {
+    environment = "DevOpsForum"
   }
 }
